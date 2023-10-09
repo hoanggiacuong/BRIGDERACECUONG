@@ -31,7 +31,7 @@ public class Enemy : Character
         if (currentState != null )
         {
             currentState.OnExecute(this);
-           Debug.Log(currentState);
+          // Debug.Log(currentState);
         }
 
 
@@ -40,13 +40,18 @@ public class Enemy : Character
     public override void OnInit()
     {
 
-        base.OnInit();
+       // base.OnInit();
        //color = ColorType.Blue;
         ChangeColor(color);
 
-        Debug.Log(color);
-        ChangeState(null);
-       targetPos = new Vector3(transform.position.x, transform.position.y -1f, transform.position.z);
+       // Debug.Log(color);
+      ChangeState(null);
+        ChangeAnim("idle");
+        if (BrickStack.Count != 0)
+        {
+            ClearStack();
+        }
+        targetPos = new Vector3(transform.position.x, transform.position.y -1f, transform.position.z);
        
     }
     public void Stop()
@@ -83,17 +88,26 @@ public class Enemy : Character
       //  Debug.Log(Vector3.Distance(tfPos, targetPos));
         if (Vector3.Distance(tfPos, targetPos) < 0.2f|| BrickStack.Count == 0)
         {
-            foreach (BrickStage br in stage.BrickLi)
+            if (stage != null)
             {
-                if (br.gameObject.activeSelf == true && br.color == this.color)
+                for (int i = 0; i < stage.BrickLi.Count; i++)
                 {
-                    //Vector3 brTarget = br.gameObject.transform.position;
-                    targetPos = br.gameObject.transform.position;
-                  //  Debug.Log(tfPos + "" + targetPos);
-                    //coutBrick += 1;
-                    break;
+                    BrickStage br = stage.BrickLi[i];
+                    if (br.gameObject.activeSelf == true && br.color == this.color)
+                    {
+                        //Vector3 brTarget = br.gameObject.transform.position;
+                        targetPos = br.gameObject.transform.position;
+                        //  Debug.Log(tfPos + "" + targetPos);
+                        //coutBrick += 1;
+                        break;
+                    }
+
                 }
             }
+
+
+            
+
             agent.SetDestination(targetPos);
             // Debug.Log("tim gach mới");
         }
@@ -118,9 +132,10 @@ public class Enemy : Character
     }
     private void OnTriggerEnter(Collider other)
     {
+       // Debug.Log("va cham stage");
         if (other.GetComponent<Stage>() != null)
         {
-            stage = (Stage)other.GetComponent<Stage>();
+            stage = other.GetComponent<Stage>();
         }
     }
 }

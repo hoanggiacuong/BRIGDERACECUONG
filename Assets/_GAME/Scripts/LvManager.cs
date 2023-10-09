@@ -22,9 +22,9 @@ public class LvManager : MonoBehaviour
     }
     private void Start()
     {
-        Oninit();
+        
 
-        //LoadLv(0);
+        
        // StartGame();
         UiManager.Instance.Play.gameObject.SetActive(true);
         // EndGame();
@@ -32,22 +32,17 @@ public class LvManager : MonoBehaviour
     }
     public void Oninit()
     {
-        curLv = lvArrayPrefab[0];
+        curLv = Instantiate(lvArrayPrefab[0]);
         numOfLv = 0;
-        player.OnInit();
+        //player.OnInit();
         //foreach(Enemy e in listEnemy)
         //{
         //    int i = Random.Range(-2, 2);
         //    e.transform.position = startPoint + Vector3.right * i;
         //}
 
-        for(int i=0; i < listEnemy.Count; i++)
-        {
-            listEnemy[i].Stop();
-            int k = Random.Range(-2, 2);
-            listEnemy[i].transform.position = startPoint + Vector3.right * k;
-           // listEnemy[i].ChangeColor(listEnemy[i].color);
-        }
+        //LoadLv(0);
+
     }
     public void LoadLv(int lv)
     {
@@ -61,15 +56,30 @@ public class LvManager : MonoBehaviour
 
     public void StartGame()
     {
+        Oninit();
+        Debug.Log("st game");
+        player.OnInit();
+        for (int i = 0; i < listEnemy.Count; i++)
+        {
+            listEnemy[i].Stop();
+            int k = Random.Range(-2, 2);
+            listEnemy[i].transform.position = startPoint + new Vector3(1, 0, 0) * k;
+            // listEnemy[i].ChangeColor(listEnemy[i].color);
+        }
+        player.transform.position = startPoint;
+     
         foreach (Enemy e in listEnemy)
         {
             e.Move();
+            e.OnInit();
+           // e.Move();
             e.ChangeState(new IdleState());
         }
         //UiManager.Instance.btn_Play.gameObject.SetActive(false);
         //UiManager.Instance.btn_Setting.gameObject.SetActive(true);
-        UiManager.Instance.Play.gameObject.SetActive(false);
+       
 
+        UiManager.Instance.Play.gameObject.SetActive(false);
     }
 
     public void EndGame()
@@ -83,10 +93,19 @@ public class LvManager : MonoBehaviour
     public void Retry()
     {
         LoadLv(numOfLv);
+        StartGame();
+       // UiManager.Instance.Play.gameObject.SetActive(true);
+        UiManager.Instance.Victory.gameObject.SetActive(false);
+        UiManager.Instance.Lose.gameObject.SetActive(false);
+        
     }
     public void NetxLv()
     {
         LoadLv(numOfLv + 1);
+        StartGame();
+        //UiManager.Instance.Play.gameObject.SetActive(true);
+        UiManager.Instance.Victory.gameObject.SetActive(false);
+        UiManager.Instance.Lose.gameObject.SetActive(false);
     }
 
 

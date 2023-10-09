@@ -144,7 +144,7 @@ public class Stage : MonoBehaviour
                     if(cout<= BrickLi.Count / 3)
                     {
 
-                        Debug.Log(color);
+                       // Debug.Log(color);
                         brickspawn.GetComponent<BrickStage>().ChangeColor(color);
                         brickspawn.gameObject.SetActive(true);
                     }
@@ -197,21 +197,21 @@ public class Stage : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Character>() != null)
+        if (other.GetComponent<Character>() != null && other.GetComponent<Character>().color != ColorType.None)
         {
             ColorType color = other.GetComponent<Character>().color;
-          //  Debug.Log(color);
-            //colorCharacter.Add(color);
+            //debug.log(color);
+            //colorcharacter.add(color);
 
-            //foreach (ColorType cl in colorCharacter)
+            //foreach (colortype cl in colorcharacter)
             //{
-            //    if(cl!=color|| colorCharacter.Count==0)
+            //    if (cl != color || colorcharacter.count == 0)
             //    {
-            //        colorCharacter.Add(color);
+            //        colorcharacter.add(color);
             //    }
             //}
 
-            if (colorCharacter.Count == 0)
+            if (colorCharacter.Count == 0 )
             {
                 colorCharacter.Add(color);
                 
@@ -261,7 +261,7 @@ public class Stage : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<Character>()!= null)
+        if (other.GetComponent<Character>()!= null && other.GetComponent<Character>().color != ColorType.None)
         {
             ColorType color = other.GetComponent<Character>().color;
             //foreach(ColorType cl in colorCharacter)

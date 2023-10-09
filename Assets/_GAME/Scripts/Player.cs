@@ -35,9 +35,21 @@ public class Player : Character
         isStage = true;
         //OnInit();
         // agent = GetComponent<NavMeshAgent>();
+        //ChangeColor(ColorType.Brown);
+        //color = ColorType.Brown;
+
+    }
+    public override void OnInit()
+    {
         ChangeColor(ColorType.Brown);
         color = ColorType.Brown;
-
+        //transform.position = startPoint.position;
+        agent.speed = speed;
+        ChangeAnim("idle");
+        if (BrickStack.Count != 0)
+        {
+            ClearStack();
+        }
     }
 
     // Update is called once per frame
@@ -129,12 +141,6 @@ public class Player : Character
 
 
 
-    public override void OnInit()
-    {
-        transform.position = startPoint.position;
-        agent.speed = speed;
-        ChangeAnim("idle");
-    }
 
     //public void AddBrick()
     //{

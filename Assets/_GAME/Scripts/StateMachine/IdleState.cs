@@ -12,7 +12,7 @@ public class IdleState : iState
     public void OnEnter(Enemy enemy) 
     {
         timer = 0;
-        randomeTime = Random.Range(1f, 2f);
+        randomeTime = Random.Range(3f, 4f);
         enemy.Stop();
     }
     public void OnExecute(Enemy enemy)

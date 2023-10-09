@@ -19,7 +19,7 @@ public class FindBrickState : iState
         //Debug.Log(Vector3.Distance(enemy.transform.position, enemy.targetPos));
 
         enemy.FindBrick();
-        if (enemy.BrickStack.Count == enemy.numOfBrick)
+        if (enemy.BrickStack.Count >= enemy.numOfBrick)
         {
            // enemy.agent.speed = 0;
             

@@ -24,7 +24,7 @@ public class Character : MonoBehaviour
 
     private void Awake()
     {
-        OnInit();
+       // OnInit();
     }
 
 
@@ -73,6 +73,16 @@ public class Character : MonoBehaviour
         }
 
 
+    }
+    public void ClearStack()
+    {
+        while (BrickStack.Count != 0)
+        {
+            GameObject BrickPop = BrickStack.Pop();
+            Destroy(BrickPop);
+
+        }
+        
     }
 }
 

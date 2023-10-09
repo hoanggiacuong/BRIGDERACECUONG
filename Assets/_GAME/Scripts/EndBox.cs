@@ -6,16 +6,21 @@ public class EndBox : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Player>()!=null)
+        Debug.Log("endboxx");
+        if (other.GetComponent<Player>() != null)
         {
+            Debug.Log("va chan endboxx");
             //UiManager.Instance.btn_Next.gameObject.SetActive(true);
-            //UiManager.Instance.btn_Retry.gameObject.SetActive(true);
+            UiManager.Instance.Victory.gameObject.SetActive(true);
             LvManager.Instance.EndGame();
+            other.GetComponent<Player>().ClearStack();
 
-        }else if(other.GetComponent<Enemy>() != null)
+        }
+        else if (other.GetComponent<Enemy>() != null)
         {
-            //UiManager.Instance.btn_Retry.gameObject.SetActive(true);
+            UiManager.Instance.Lose.gameObject.SetActive(true);
             LvManager.Instance.EndGame();
+            other.GetComponent<Enemy>().ClearStack();
         }
     }
 }
